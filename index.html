@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Spec-Driven Development Tools — Comparison Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e13;
+    --surface: #13161d;
+    --surface-2: #1a1e28;
+    --border: #252a36;
+    --border-light: #2f3545;
+    --text: #e2e4ea;
+    --text-muted: #8b90a0;
+    --text-dim: #5c6070;
+    --accent: #6c8aff;
+    --accent-glow: rgba(108, 138, 255, 0.12);
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --cyan: #22d3ee;
+    --purple: #a78bfa;
+    --orange: #fb923c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 24px 80px;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 48px;
+  }
+
+  header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #e2e4ea 30%, #6c8aff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  /* ── Section titles ── */
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 48px 0 20px;
+    padding-left: 4px;
+  }
+
+  /* ── Main comparison table ── */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  thead th {
+    background: var(--surface-2);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    white-space: nowrap;
+  }
+
+  thead th:first-child {
+    border-radius: 12px 0 0 0;
+    min-width: 160px;
+  }
+
+  thead th:last-child {
+    border-radius: 0 12px 0 0;
+  }
+
+  tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background: var(--accent-glow);
+  }
+
+  tbody td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--accent);
+  }
+
+  /* ── Tags / Badges ── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin: 2px 3px 2px 0;
+    white-space: nowrap;
+  }
+
+  .tag.ide       { background: rgba(108,138,255,0.15); color: var(--accent); }
+  .tag.plugin    { background: rgba(167,139,250,0.15); color: var(--purple); }
+  .tag.framework { background: rgba(34,211,238,0.15);  color: var(--cyan); }
+  .tag.platform  { background: rgba(251,146,60,0.15);  color: var(--orange); }
+  .tag.cli       { background: rgba(74,222,128,0.15);  color: var(--green); }
+  .tag.oss       { background: rgba(74,222,128,0.12);  color: var(--green); }
+  .tag.closed    { background: rgba(251,113,133,0.12); color: var(--rose); }
+  .tag.beta      { background: rgba(251,191,36,0.15);  color: var(--amber); }
+  .tag.ga        { background: rgba(74,222,128,0.12);  color: var(--green); }
+
+  .cell-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .cell-list li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 3px;
+    color: var(--text);
+  }
+
+  .cell-list li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .dim { color: var(--text-muted); }
+  .highlight { color: var(--green); font-weight: 500; }
+  .warn { color: var(--amber); }
+
+  /* ── Smaller tools table ── */
+  .table-sm td, .table-sm th {
+    font-size: 13px;
+  }
+
+  /* ── Legend ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── Notes section ── */
+  .notes {
+    margin-top: 48px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .notes strong {
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    header h1 { font-size: 24px; }
+    body { padding: 24px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="label">Research · Feb 2026</div>
+    <h1>AI Spec-Driven Development Tools</h1>
+    <p>A comparison matrix of the major tools, frameworks, and platforms in the SDD ecosystem — from dedicated IDEs to lightweight CLI plugins.</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- MAJOR PLAYERS                          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-title">Major Players</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Type</th>
+          <th>Backing</th>
+          <th>Status</th>
+          <th>SDD Workflow</th>
+          <th>IDE / Agent Compatibility</th>
+          <th>Key Differentiator</th>
+          <th>Limitations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Kiro -->
+        <tr>
+          <td>Kiro</td>
+          <td><span class="tag ide">IDE</span></td>
+          <td>AWS</td>
+          <td><span class="tag beta">Preview</span></td>
+          <td>
+            <ul class="cell-list">
+              <li>Requirements → Design → Tasks</li>
+              <li>EARS notation for acceptance criteria</li>
+              <li>Agent Hooks (event-driven automation)</li>
+              <li>Steering files for project-wide rules</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Standalone IDE (Code OSS fork)</li>
+              <li>CLI available</li>
+              <li>Imports VS Code settings/extensions</li>
+              <li>MCP support built-in</li>
+            </ul>
+          </td>
+          <td>
+            <span class="highlight">Full IDE experience</span> with spec UI baked in. Hooks automate tests/docs on file events. Loosely coupled from AWS.
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li class="warn">Overkill for small tasks / bug fixes</li>
+              <li>Specs can drift from code</li>
+              <li>Requires IDE switch</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- GitHub Spec Kit -->
+        <tr>
+          <td>GitHub Spec Kit</td>
+          <td><span class="tag plugin">Toolkit / CLI</span></td>
+          <td>GitHub / Microsoft</td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>
+            <ul class="cell-list">
+              <li>/specify → /plan → /tasks → /implement</li>
+              <li>Human approval gates at each phase</li>
+              <li>Constitution.md for project principles</li>
+              <li>Templates per agent type</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>GitHub Copilot</li>
+              <li>Claude Code</li>
+              <li>Gemini CLI</li>
+              <li>Cursor, Windsurf</li>
+            </ul>
+          </td>
+          <td>
+            <span class="highlight">Agent-agnostic</span> — spec becomes the contract. Lightweight, no IDE lock-in. Team members can use different tools against the same spec.
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Overkill for small features</li>
+              <li>Learning curve for spec authoring</li>
+              <li class="warn">UI-heavy work still needs visual tools</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- Tessl -->
+        <tr>
+          <td>Tessl</td>
+          <td><span class="tag platform">Platform</span></td>
+          <td>Tessl (Guy Podjarny / ex-Snyk)</td>
+          <td>
+            <span class="tag ga">Registry: Open Beta</span><br>
+            <span class="tag beta">Framework: Closed Beta</span>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Spec-as-source (per-file specs)</li>
+              <li>@generate / @describe directives</li>
+              <li>@test links to acceptance tests</li>
+              <li>API section defines public interfaces</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Claude Code, Cursor, etc. via MCP</li>
+              <li>CLI: <code>tessl init / install / build</code></li>
+              <li>Agent-agnostic tiles</li>
+            </ul>
+          </td>
+          <td>
+            <span class="highlight">Spec Registry</span> with 10,000+ pre-built library specs — prevents API hallucinations. Package manager for agent context. Specs as versioned dependencies.
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Low abstraction level (per-file)</li>
+              <li>Non-deterministic code gen from same spec</li>
+              <li class="warn">Framework still in closed beta</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- BMAD -->
+        <tr>
+          <td>BMAD Method</td>
+          <td><span class="tag framework">Framework</span></td>
+          <td>Community (BMad Code, LLC)</td>
+          <td><span class="tag oss">Open Source</span> <span class="tag beta">v6 Alpha</span></td>
+          <td>
+            <ul class="cell-list">
+              <li>Multi-agent orchestration (12+ agents)</li>
+              <li>3 tracks: Quick / Standard / Enterprise</li>
+              <li>Analysis → Planning → Solutioning → Impl.</li>
+              <li>Story/sharding system for doc-code mapping</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Claude Code, Cursor, Windsurf</li>
+              <li>Web UI bundles (Claude Projects, ChatGPT, Gemini)</li>
+              <li><code>npx bmad-method install</code></li>
+            </ul>
+          </td>
+          <td>
+            <span class="highlight">Full agile team simulation</span> — Analyst, PM, Architect, Dev, QA, Scrum Master, UX agents. Broadest lifecycle coverage. Domain-extensible (game dev, creative, business).
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Heaviest learning curve</li>
+              <li>Can feel like bureaucracy for small projects</li>
+              <li class="warn">Complexity may exceed what agents reliably follow</li>
+            </ul>
+          </td>
+        </tr>
+
+        <!-- Pre.dev -->
+        <tr>
+          <td>Pre.dev</td>
+          <td><span class="tag platform">Platform</span></td>
+          <td>Pre.dev (YC-affiliated)</td>
+          <td><span class="tag ga">GA</span></td>
+          <td>
+            <ul class="cell-list">
+              <li>AI generates architecture + milestones</li>
+              <li>User stories + sub-tasks auto-created</li>
+              <li>Focused agents per task (isolated context)</li>
+              <li>Verified task completion before marking done</li>
+            </ul>
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Browser-based (own environment)</li>
+              <li>Git integration (feature branches + PRs)</li>
+              <li>Any tech stack</li>
+            </ul>
+          </td>
+          <td>
+            <span class="highlight">Planning-first autonomous agent</span> — no tech experience required. Auto-generates roadmap before code. Each task agent gets isolated context, preventing drift.
+          </td>
+          <td>
+            <ul class="cell-list">
+              <li>Walled environment (not your IDE)</li>
+              <li>Less control over architecture decisions</li>
+              <li class="warn">Closer to "managed vibe coding" than true SDD</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- EMERGING / LIGHTWEIGHT                 -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-title">Emerging &amp; Lightweight Tools</div>
+  <div class="table-wrap">
+    <table class="table-sm">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>What It Does</th>
+          <th>Best For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>cc-sdd</td>
+          <td><span class="tag cli">CLI</span></td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>Kiro-style SDD workflow (<code>npx cc-sdd@latest</code>) for 8 different agents/IDEs. Requirements → Design → Tasks with steering files.</td>
+          <td>Want Kiro's workflow without switching IDEs. Cursor, Claude Code, Copilot, Gemini CLI.</td>
+        </tr>
+        <tr>
+          <td>Autospec</td>
+          <td><span class="tag cli">CLI</span></td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>Spec Kit-inspired CLI for Claude Code with YAML validations, retries, notifications, streamlined flows.</td>
+          <td>Claude Code users wanting lightweight spec workflow.</td>
+        </tr>
+        <tr>
+          <td>OpenSpec</td>
+          <td><span class="tag framework">Framework</span></td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>Lightweight spec format for AI coding agents by Fission AI. Emphasis on simplicity and portability.</td>
+          <td>Teams wanting minimal spec overhead with maximum agent compatibility.</td>
+        </tr>
+        <tr>
+          <td>PromptX</td>
+          <td><span class="tag framework">Framework</span></td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>Prompt engineering patterns structured as reusable specifications. Focuses on prompt architecture.</td>
+          <td>Teams focused on prompt/context engineering discipline.</td>
+        </tr>
+        <tr>
+          <td>SPARC + Claude-Flow</td>
+          <td><span class="tag framework">Framework</span></td>
+          <td><span class="tag oss">Open Source</span></td>
+          <td>Specification, Pseudocode, Architecture, Refinement, Completion framework. Pairs with Claude-Flow for orchestration.</td>
+          <td>Claude Code power users wanting structured multi-phase workflow.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FEATURE COMPARISON                     -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-title">Feature Comparison — Major Tools</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>Kiro</th>
+          <th>Spec Kit</th>
+          <th>Tessl</th>
+          <th>BMAD</th>
+          <th>Pre.dev</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Spec Authoring</td>
+          <td class="highlight">Built-in UI</td>
+          <td>Slash commands</td>
+          <td>CLI + markdown</td>
+          <td>Agent-guided</td>
+          <td>Auto-generated</td>
+        </tr>
+        <tr>
+          <td>Human-in-the-Loop Gates</td>
+          <td>✓ Per phase</td>
+          <td>✓ Per phase</td>
+          <td>✓ Per spec</td>
+          <td>✓ Per artifact</td>
+          <td>✓ Before merge</td>
+        </tr>
+        <tr>
+          <td>Works with Cursor</td>
+          <td class="dim">✗ (own IDE)</td>
+          <td class="highlight">✓</td>
+          <td class="highlight">✓</td>
+          <td class="highlight">✓</td>
+          <td class="dim">✗ (own env)</td>
+        </tr>
+        <tr>
+          <td>Works with Claude Code</td>
+          <td class="dim">✗</td>
+          <td class="highlight">✓</td>
+          <td class="highlight">✓</td>
+          <td class="highlight">✓</td>
+          <td class="dim">✗</td>
+        </tr>
+        <tr>
+          <td>Library / API Spec Registry</td>
+          <td class="dim">✗</td>
+          <td class="dim">✗</td>
+          <td class="highlight">✓ (10K+ specs)</td>
+          <td class="dim">✗</td>
+          <td class="dim">✗</td>
+        </tr>
+        <tr>
+          <td>Multi-Agent Roles</td>
+          <td class="dim">Single agent</td>
+          <td class="dim">Single agent</td>
+          <td class="dim">Single agent</td>
+          <td class="highlight">12+ specialized</td>
+          <td>Focused per-task</td>
+        </tr>
+        <tr>
+          <td>Event-Driven Automation</td>
+          <td class="highlight">✓ (Hooks)</td>
+          <td class="dim">✗</td>
+          <td class="dim">✗</td>
+          <td class="dim">✗</td>
+          <td class="dim">✗</td>
+        </tr>
+        <tr>
+          <td>Test Generation from Spec</td>
+          <td>✓ Optional</td>
+          <td class="dim">✗</td>
+          <td class="highlight">✓ (linked)</td>
+          <td>✓ (QA agent)</td>
+          <td>✓ (verification)</td>
+        </tr>
+        <tr>
+          <td>Spec ↔ Code Sync</td>
+          <td>Partial</td>
+          <td class="dim">Manual</td>
+          <td class="highlight">@generate</td>
+          <td class="dim">Manual</td>
+          <td>Auto (scoped)</td>
+        </tr>
+        <tr>
+          <td>Greenfield + Brownfield</td>
+          <td>✓ Both</td>
+          <td>✓ Both</td>
+          <td>✓ Both</td>
+          <td>✓ Both</td>
+          <td>Greenfield focus</td>
+        </tr>
+        <tr>
+          <td>Enterprise / Governance</td>
+          <td>Moderate</td>
+          <td>Constitution.md</td>
+          <td>Moderate</td>
+          <td class="highlight">Enterprise track</td>
+          <td>Minimal</td>
+        </tr>
+        <tr>
+          <td>Learning Curve</td>
+          <td>Medium</td>
+          <td>Low–Medium</td>
+          <td>Medium</td>
+          <td class="warn">High</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td>Cost</td>
+          <td>Free (preview)</td>
+          <td>Free (OSS)</td>
+          <td>Registry free / Framework TBD</td>
+          <td>Free (OSS)</td>
+          <td>Free tier + paid</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><span class="tag ide">IDE</span> Standalone editor</div>
+    <div class="legend-item"><span class="tag plugin">Toolkit</span> Plugin / CLI toolkit</div>
+    <div class="legend-item"><span class="tag framework">Framework</span> Methodology framework</div>
+    <div class="legend-item"><span class="tag platform">Platform</span> Hosted platform</div>
+    <div class="legend-item"><span class="tag cli">CLI</span> Command-line tool</div>
+    <div class="legend-item"><span class="tag oss">OSS</span> Open source</div>
+    <div class="legend-item"><span class="tag beta">Beta</span> Pre-release</div>
+    <div class="legend-item"><span class="tag ga">GA</span> Generally available</div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes">
+    <strong>Alignment with your methodology:</strong> Your Phase 0 → 0.5 → 1 workflow maps closely to the Specify → Plan → Tasks → Implement pattern these tools formalize. Given your Cursor-based workflow, <strong>GitHub Spec Kit</strong> and <strong>cc-sdd</strong> are the most natural fits — agent-agnostic, lightweight, no IDE switch required. <strong>BMAD</strong> is worth evaluating if multi-agent orchestration appeals. <strong>Tessl's Spec Registry</strong> is independently useful for preventing library hallucinations regardless of which SDD tool you adopt.
+  </div>
+
+</div>
+</body>
+</html>
