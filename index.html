@@ -4,31 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Spec-Driven Development Tools — Comparison Matrix</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0c0e13;
-    --surface: #13161d;
-    --surface-2: #1a1e28;
-    --border: #252a36;
-    --border-light: #2f3545;
-    --text: #e2e4ea;
-    --text-muted: #8b90a0;
-    --text-dim: #5c6070;
-    --accent: #6c8aff;
-    --accent-glow: rgba(108, 138, 255, 0.12);
-    --green: #4ade80;
-    --amber: #fbbf24;
-    --rose: #fb7185;
-    --cyan: #22d3ee;
-    --purple: #a78bfa;
-    --orange: #fb923c;
+    /* Fortegra Brand Colors */
+    --fg-midnight-blue: #002e5a;
+    --fg-lake-blue: #34acb4;
+    --fg-sand: #eadfd4;
+    --fg-graphite: #4d4d4f;
+    --fg-white: #ffffff;
+
+    /* Chart-only palette */
+    --fg-moss: #6d994f;
+    --fg-saffron: #febe10;
+    --fg-rust: #db6141;
+    --fg-plum: #842e62;
+
+    /* Derived tokens */
+    --bg: var(--fg-white);
+    --surface: var(--fg-white);
+    --surface-2: #f5f0eb;
+    --border: #d4cdc4;
+    --border-light: #e0d9d0;
+    --text: var(--fg-graphite);
+    --text-muted: #7a7a7c;
+    --text-dim: #9a9a9c;
+    --accent: var(--fg-lake-blue);
+    --accent-glow: rgba(52, 172, 180, 0.08);
+    --green: var(--fg-moss);
+    --amber: var(--fg-saffron);
+    --rose: var(--fg-rust);
+    --purple: var(--fg-plum);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     padding: 40px 24px 80px;
@@ -41,27 +53,36 @@
     margin: 0 auto;
   }
 
+  /* ── Logo bar ── */
+  .logo-bar {
+    margin-bottom: 32px;
+  }
+  .logo-bar img {
+    height: 36px;
+  }
+
   header {
     margin-bottom: 48px;
+    border-bottom: 3px solid var(--fg-lake-blue);
+    padding-bottom: 28px;
   }
 
   header .label {
-    font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--fg-lake-blue);
     margin-bottom: 12px;
   }
 
   header h1 {
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 32px;
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 12px;
-    background: linear-gradient(135deg, #e2e4ea 30%, #6c8aff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--fg-midnight-blue);
   }
 
   header p {
@@ -73,21 +94,24 @@
 
   /* ── Section titles ── */
   .section-title {
-    font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
+    font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--fg-midnight-blue);
     margin: 48px 0 20px;
     padding-left: 4px;
+    border-left: 3px solid var(--fg-lake-blue);
+    padding-left: 12px;
   }
 
   /* ── Main comparison table ── */
   .table-wrap {
     overflow-x: auto;
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 8px;
     background: var(--surface);
+    box-shadow: 0 1px 4px rgba(0, 46, 90, 0.06);
   }
 
   table {
@@ -98,15 +122,15 @@
   }
 
   thead th {
-    background: var(--surface-2);
-    font-weight: 600;
+    background: var(--fg-midnight-blue);
+    font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--fg-white);
     padding: 14px 18px;
     text-align: left;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--fg-lake-blue);
     position: sticky;
     top: 0;
     z-index: 2;
@@ -114,17 +138,17 @@
   }
 
   thead th:first-child {
-    border-radius: 12px 0 0 0;
+    border-radius: 8px 0 0 0;
     min-width: 160px;
   }
 
   thead th:last-child {
-    border-radius: 0 12px 0 0;
+    border-radius: 0 8px 0 0;
   }
 
   tbody td {
     padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
     vertical-align: top;
     color: var(--text);
   }
@@ -133,37 +157,40 @@
     border-bottom: none;
   }
 
+  tbody tr:nth-child(even) {
+    background: var(--surface-2);
+  }
+
   tbody tr:hover {
     background: var(--accent-glow);
   }
 
   tbody td:first-child {
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
-    color: var(--accent);
+    color: var(--fg-midnight-blue);
   }
 
   /* ── Tags / Badges ── */
   .tag {
     display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
     font-size: 10.5px;
-    font-weight: 500;
+    font-weight: 700;
     padding: 3px 8px;
     border-radius: 4px;
     margin: 2px 3px 2px 0;
     white-space: nowrap;
   }
 
-  .tag.ide       { background: rgba(108,138,255,0.15); color: var(--accent); }
-  .tag.plugin    { background: rgba(167,139,250,0.15); color: var(--purple); }
-  .tag.framework { background: rgba(34,211,238,0.15);  color: var(--cyan); }
-  .tag.platform  { background: rgba(251,146,60,0.15);  color: var(--orange); }
-  .tag.cli       { background: rgba(74,222,128,0.15);  color: var(--green); }
-  .tag.oss       { background: rgba(74,222,128,0.12);  color: var(--green); }
-  .tag.closed    { background: rgba(251,113,133,0.12); color: var(--rose); }
-  .tag.beta      { background: rgba(251,191,36,0.15);  color: var(--amber); }
-  .tag.ga        { background: rgba(74,222,128,0.12);  color: var(--green); }
+  .tag.ide       { background: rgba(0,46,90,0.10); color: var(--fg-midnight-blue); }
+  .tag.plugin    { background: rgba(132,46,98,0.12); color: var(--fg-plum); }
+  .tag.framework { background: rgba(52,172,180,0.12); color: #2a8f96; }
+  .tag.platform  { background: rgba(219,97,65,0.12); color: var(--fg-rust); }
+  .tag.cli       { background: rgba(109,153,79,0.12); color: #4a7a2e; }
+  .tag.oss       { background: rgba(109,153,79,0.10); color: #4a7a2e; }
+  .tag.closed    { background: rgba(219,97,65,0.10); color: var(--fg-rust); }
+  .tag.beta      { background: rgba(254,190,16,0.18); color: #8a6800; }
+  .tag.ga        { background: rgba(109,153,79,0.12); color: #4a7a2e; }
 
   .cell-list {
     list-style: none;
@@ -181,13 +208,13 @@
     content: '›';
     position: absolute;
     left: 0;
-    color: var(--text-dim);
-    font-weight: 600;
+    color: var(--fg-lake-blue);
+    font-weight: 700;
   }
 
   .dim { color: var(--text-muted); }
-  .highlight { color: var(--green); font-weight: 500; }
-  .warn { color: var(--amber); }
+  .highlight { color: var(--fg-lake-blue); font-weight: 700; }
+  .warn { color: #a85800; }
 
   /* ── Smaller tools table ── */
   .table-sm td, .table-sm th {
@@ -201,9 +228,9 @@
     gap: 12px;
     margin-top: 20px;
     padding: 16px 20px;
-    background: var(--surface);
+    background: var(--fg-sand);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .legend-item {
@@ -218,17 +245,26 @@
   .notes {
     margin-top: 48px;
     padding: 24px;
-    background: var(--surface);
+    background: var(--fg-sand);
     border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 10px 10px 0;
+    border-left: 4px solid var(--fg-lake-blue);
+    border-radius: 0 8px 8px 0;
     font-size: 14px;
-    color: var(--text-muted);
+    color: var(--text);
     line-height: 1.7;
   }
 
   .notes strong {
-    color: var(--text);
+    color: var(--fg-midnight-blue);
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    background: rgba(0,46,90,0.06);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--fg-midnight-blue);
   }
 
   @media (max-width: 768px) {
